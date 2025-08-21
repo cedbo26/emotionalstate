@@ -20,12 +20,21 @@
     input,select,textarea{width:100%;margin-top:6px;padding:12px;border:1px solid #dadce0;border-radius:8px;font-size:16px;background:#fff;transition:border-color .2s, box-shadow .2s}
     input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,115,232,.18)}
     textarea{min-height:90px;resize:vertical}
-    /* ✅ radios / checkboxes : une option par ligne */
+    /* radios / checkboxes : une option par ligne (mobile-friendly) */
     .radio-group{display:block;margin:8px 0 16px}
     .radio-group label{display:block;margin:6px 0;font-weight:400;color:#3c4043}
     .radio-group input{margin-right:8px}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media (max-width:720px){.row{grid-template-columns:1fr}}
+
+    /* Scales (semantic differential) */
+    .scale{margin:18px 0}
+    .scale .hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+    .scale .hdr label{margin:0;color:#3c4043;font-weight:500}
+    .scale .vals{display:flex;justify-content:space-between;font-size:13px;color:#5f6368;margin:4px 2px 8px}
+    .scale input[type=range]{width:100%}
+    .scale output{min-width:2ch;text-align:center;font-variant-numeric:tabular-nums;color:#1a73e8;font-weight:500}
+
     button{display:block;margin:28px auto 4px;padding:12px 28px;background:var(--primary);color:#fff;border:none;border-radius:26px;font-size:16px;font-weight:500;letter-spacing:.3px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:background .25s, box-shadow .25s}
     button:hover{background:#1765cc;box-shadow:0 4px 12px rgba(0,0,0,.25)}
     .hint{text-align:center;color:#5f6368;font-size:14px;margin-top:6px}
@@ -35,27 +44,41 @@
   <div class="container">
     <h1>📝 Journal du jour</h1>
 
-    <!-- ✅ ton endpoint Formspree -->
+    <!-- Endpoint Formspree -->
     <form action="https://formspree.io/f/mrblnbqp" method="POST">
 
-      <!-- 🟦 État général -->
+      <!-- 🧠 État général (échelles) -->
       <h2>🧠 État général</h2>
-      <label>Énergie :</label>
-      <select name="Énergie">
-        <option>Très basse</option><option>Basse</option><option>Moyenne</option>
-        <option>Haute</option><option>Très haute</option>
-      </select>
 
-      <label>Stabilité émotionnelle :</label>
-      <select name="Stabilité émotionnelle">
-        <option>Fragile</option><option>Moyenne</option><option>Bonne</option>
-      </select>
+      <div class="scale">
+        <div class="hdr">
+          <label for="energie">Énergie</label>
+          <output id="out-energie">3</output>
+        </div>
+        <div class="vals"><span>Très basse</span><span>Très haute</span></div>
+        <input id="energie" name="Énergie (1–5)" type="range" min="1" max="5" step="1" value="3"
+               oninput="out-energie.value=this.value">
+      </div>
 
-      <label>Stress perçu :</label>
-      <select name="Stress perçu">
-        <option>Aucun</option><option>Léger</option><option>Modéré</option>
-        <option>Fort</option><option>Écrasant</option>
-      </select>
+      <div class="scale">
+        <div class="hdr">
+          <label for="stabilite">Stabilité émotionnelle</label>
+          <output id="out-stabilite">3</output>
+        </div>
+        <div class="vals"><span>Fragile</span><span>Bonne</span></div>
+        <input id="stabilite" name="Stabilité émotionnelle (1–5)" type="range" min="1" max="5" step="1" value="3"
+               oninput="out-stabilite.value=this.value">
+      </div>
+
+      <div class="scale">
+        <div class="hdr">
+          <label for="stress">Stress perçu</label>
+          <output id="out-stress">3</output>
+        </div>
+        <div class="vals"><span>Aucun</span><span>Écrasant</span></div>
+        <input id="stress" name="Stress perçu (1–5)" type="range" min="1" max="5" step="1" value="3"
+               oninput="out-stress.value=this.value">
+      </div>
 
       <div class="row">
         <div>
@@ -68,8 +91,9 @@
         </div>
       </div>
 
-      <!-- 🟦 Relations -->
+      <!-- 💞 Relations -->
       <h2>💞 Relations</h2>
+
       <label>Contact avec Javi aujourd’hui ?</label>
       <div class="radio-group">
         <label><input type="radio" name="Javi contact" value="Oui"> Oui</label>
@@ -100,8 +124,9 @@
       <label>Préciser :</label>
       <textarea name="Nathan malaise détails"></textarea>
 
-      <!-- 🟦 Ressenti intérieur -->
+      <!-- 🧩 Ressenti intérieur -->
       <h2>🧩 Ressenti intérieur</h2>
+
       <label>Sentiment dominant :</label>
       <input type="text" name="Sentiment dominant">
 
@@ -126,18 +151,62 @@
       <label>Pourquoi :</label>
       <input type="text" name="Culpabilité raison">
 
-      <!-- 🟦 État borderline -->
+      <!-- 🧠 État borderline (échelles 1–5) -->
       <h2>🧠 État borderline (1–5)</h2>
-      <div class="row">
-        <div><label>Poursuite affective :</label><input type="number" name="Poursuite affective" min="1" max="5"></div>
-        <div><label>Peur de l’abandon :</label><input type="number" name="Peur abandon" min="1" max="5"></div>
-        <div><label>Clivage / idéalisation :</label><input type="number" name="Clivage" min="1" max="5"></div>
-        <div><label>Impulsivité :</label><input type="number" name="Impulsivité" min="1" max="5"></div>
-        <div><label>Sentiment de vide :</label><input type="number" name="Vide" min="1" max="5"></div>
+
+      <div class="scale">
+        <div class="hdr">
+          <label for="poursuite">Poursuite affective</label>
+          <output id="out-poursuite">3</output>
+        </div>
+        <div class="vals"><span>Évitement</span><span>Poursuite</span></div>
+        <input id="poursuite" name="Poursuite affective" type="range" min="1" max="5" step="1" value="3"
+               oninput="out-poursuite.value=this.value">
       </div>
 
-      <!-- 🟦 Verbalisation -->
+      <div class="scale">
+        <div class="hdr">
+          <label for="abandon">Peur de l’abandon</label>
+          <output id="out-abandon">3</output>
+        </div>
+        <div class="vals"><span>Sécurité affective</span><span>Peur d’abandon</span></div>
+        <input id="abandon" name="Peur abandon" type="range" min="1" max="5" step="1" value="3"
+               oninput="out-abandon.value=this.value">
+      </div>
+
+      <div class="scale">
+        <div class="hdr">
+          <label for="clivage">Clivage / idéalisation</label>
+          <output id="out-clivage">3</output>
+        </div>
+        <div class="vals"><span>Nuancé</span><span>Noir/Blanc</span></div>
+        <input id="clivage" name="Clivage" type="range" min="1" max="5" step="1" value="3"
+               oninput="out-clivage.value=this.value">
+      </div>
+
+      <div class="scale">
+        <div class="hdr">
+          <label for="impulsivite">Impulsivité</label>
+          <output id="out-impulsivite">3</output>
+        </div>
+        <div class="vals"><span>Calme</span><span>Impulsif·ve</span></div>
+        <input id="impulsivite" name="Impulsivité" type="range" min="1" max="5" step="1" value="3"
+               oninput="out-impulsivite.value=this.value">
+      </div>
+
+      <div class="scale">
+        <div class="hdr">
+          <label for="vide">Sentiment de vide</label>
+          <output id="out-vide">3</output>
+        </div>
+        <div class="vals"><span>Ressenti plein</span><span>Vide intérieur</span></div>
+        <input id="vide" name="Vide" type="range" min="1" max="5" step="1" value="3"
+               oninput="out-vide.value=this.value">
+      </div>
+
+      <!-- 🗣️ Verbalisation -->
       <h2>🗣️ Verbalisation</h2>
+
       <label>Ai-je dit ce que je ressentais ?</label>
       <div class="radio-group">
         <label><input type="radio" name="Verbalisation" value="Oui"> Oui</label>
@@ -150,11 +219,11 @@
       <label>Ce que je n’ai pas osé dire :</label>
       <textarea name="Non dit"></textarea>
 
-      <!-- 🟦 Notes -->
+      <!-- 🧭 Notes -->
       <h2>🧭 Notes libres</h2>
       <textarea name="Notes"></textarea>
 
-      <!-- ✅ champ email obligatoire -->
+      <!-- Email requis (Formspree) -->
       <label>Email :</label>
       <input type="email" name="email" required>
 
