@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Journal du jour</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: sans-serif; max-width: 700px; margin: 2rem auto; line-height: 1.5; }
+    h1 { text-align: center; }
+    h2 { margin-top: 2rem; }
+    label { font-weight: bold; display: block; margin-top: 1rem; }
+    input, select, textarea, button { 
+      margin-top: 0.3rem; 
+      padding: 0.5rem; 
+      width: 100%; 
+      max-width: 100%; 
+      box-sizing: border-box; 
+    }
+    textarea { min-height: 80px; }
+    button { background: #4caf50; color: white; border: none; cursor: pointer; margin-top: 1.5rem; }
+    button:hover { background: #45a049; }
+  </style>
+</head>
+<body>
+
+  <h1>📝 Journal du jour</h1>
+
+  <form action="https://formspree.io/f/TON_ID_FORM" method="POST">
+    <!-- 🚨 Remplace TON_ID_FORM par l’identifiant donné par Formspree -->
+
+    <h2>🧠 État général</h2>
+    <label>Énergie :</label>
+    <select name="Énergie">
+      <option>Très basse</option><option>Basse</option><option>Moyenne</option>
+      <option>Haute</option><option>Très haute</option>
+    </select>
+
+    <label>Stabilité émotionnelle :</label>
+    <select name="Stabilité émotionnelle">
+      <option>Fragile</option><option>Moyenne</option><option>Bonne</option>
+    </select>
+
+    <label>Stress perçu :</label>
+    <select name="Stress perçu">
+      <option>Aucun</option><option>Léger</option><option>Modéré</option>
+      <option>Fort</option><option>Écrasant</option>
+    </select>
+
+    <label>Anxiété ou tensions physiques :</label>
+    <input type="text" name="Anxiété / Symptômes" placeholder="Ex. mal de ventre, crispation..." />
+    <label>Intensité (1–10) :</label>
+    <input type="number" name="Anxiété / Intensité" min="1" max="10" />
+
+    <h2>💞 Relations</h2>
+    <label>Contact avec Javi aujourd’hui ?</label>
+    <input type="radio" name="Javi contact" value="Oui" /> Oui
+    <input type="radio" name="Javi contact" value="Non" /> Non
+
+    <label>Type de lien avec Javi :</label>
+    <input type="text" name="Javi lien" />
+
+    <label>Ressenti après Javi :</label>
+    <textarea name="Javi ressenti"></textarea>
+
+    <label>Contact avec Nathan aujourd’hui ?</label>
+    <input type="radio" name="Nathan contact" value="Oui" /> Oui
+    <input type="radio" name="Nathan contact" value="Non" /> Non
+
+    <label>Type de lien avec Nathan :</label>
+    <input type="text" name="Nathan lien" />
+
+    <label>Malaise avec Nathan ?</label>
+    <input type="radio" name="Nathan malaise" value="Oui" /> Oui
+    <input type="radio" name="Nathan malaise" value="Non" /> Non
+
+    <label>Préciser :</label>
+    <textarea name="Nathan malaise détails"></textarea>
+
+    <h2>🧩 Ressenti intérieur</h2>
+    <label>Sentiment dominant :</label>
+    <input type="text" name="Sentiment dominant" />
+
+    <label>Soutenue aujourd’hui ?</label>
+    <input type="radio" name="Soutenue" value="Oui" /> Oui
+    <input type="radio" name="Soutenue" value="Non" /> Non
+
+    <label>Libre aujourd’hui ?</label>
+    <input type="radio" name="Libre" value="Oui" /> Oui
+    <input type="radio" name="Libre" value="Non" /> Non
+
+    <label>Coupable aujourd’hui ?</label>
+    <input type="radio" name="Culpabilité" value="Oui" /> Oui
+    <input type="radio" name="Culpabilité" value="Non" /> Non
+    <label>Pourquoi :</label>
+    <input type="text" name="Culpabilité raison" />
+
+    <h2>🧠 État borderline (1–5)</h2>
+    <label>Poursuite affective :</label><input type="number" name="Poursuite affective" min="1" max="5" />
+    <label>Peur de l’abandon :</label><input type="number" name="Peur abandon" min="1" max="5" />
+    <label>Clivage / idéalisation :</label><input type="number" name="Clivage" min="1" max="5" />
+    <label>Impulsivité :</label><input type="number" name="Impulsivité" min="1" max="5" />
+    <label>Sentiment de vide :</label><input type="number" name="Vide" min="1" max="5" />
+
+    <h2>🗣️ Verbalisation</h2>
+    <label>Ai-je dit ce que je ressentais ?</label>
+    <input type="radio" name="Verbalisation" value="Oui" /> Oui
+    <input type="radio" name="Verbalisation" value="Non" /> Non
+    <label>À qui ?</label><input type="text" name="À qui" />
+    <label>Ce que je n’ai pas osé dire :</label>
+    <textarea name="Non dit"></textarea>
+
+    <h2>🧭 Notes libres</h2>
+    <textarea name="Notes"></textarea>
+
+    <!-- Redirection après envoi -->
+    <input type="hidden" name="_redirect" value="https://TON_USER.github.io/TON_REPO/success.html">
+
+    <button type="submit">Envoyer le journal du jour</button>
+  </form>
+
+</body>
+</html>
