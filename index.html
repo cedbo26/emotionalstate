@@ -20,64 +20,84 @@
     input,select,textarea{width:100%;margin-top:6px;padding:12px;border:1px solid #dadce0;border-radius:8px;font-size:16px;background:#fff;transition:border-color .2s, box-shadow .2s}
     input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,115,232,.18)}
     textarea{min-height:90px;resize:vertical}
-    /* radios / checkboxes : une option par ligne (mobile-friendly) */
+
+    /* Radios/checkbox vertical (mobile-friendly) */
     .radio-group{display:block;margin:8px 0 16px}
     .radio-group label{display:block;margin:6px 0;font-weight:400;color:#3c4043}
     .radio-group input{margin-right:8px}
+
     .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media (max-width:720px){.row{grid-template-columns:1fr}}
 
-    /* Scales (semantic differential) */
-    .scale{margin:18px 0}
-    .scale .hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-    .scale .hdr label{margin:0;color:#3c4043;font-weight:500}
-    .scale .vals{display:flex;justify-content:space-between;font-size:13px;color:#5f6368;margin:4px 2px 8px}
-    .scale input[type=range]{width:100%}
-    .scale output{min-width:2ch;text-align:center;font-variant-numeric:tabular-nums;color:#1a73e8;font-weight:500}
+    /* Segmented scales 1–5 (clickable) */
+    .seg{margin:18px 0}
+    .seg .hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .seg .hdr label{margin:0;color:#3c4043;font-weight:500}
+    .segticks{display:flex;gap:8px;justify-content:space-between}
+    .segticks input{display:none}
+    .segticks label{
+      flex:1; text-align:center; padding:10px 0; border:1px solid #dadce0; border-radius:10px;
+      cursor:pointer; user-select:none; transition:all .15s; background:#fff;
+    }
+    .segticks label small{display:block; font-size:12px; color:#5f6368; margin-top:4px}
+    .segticks input:checked + label{
+      border-color:#1a73e8; background:#e8f0fe; color:#1a73e8; font-weight:500;
+      box-shadow:0 0 0 3px rgba(26,115,232,.18) inset;
+    }
+    @media (max-width:560px){
+      .segticks label{padding:8px 0; font-size:14px}
+      .segticks label small{font-size:11px}
+    }
 
+    /* Conditional blocks */
+    .hidden{display:none}
+
+    .hint{text-align:center;color:#5f6368;font-size:14px;margin-top:6px}
     button{display:block;margin:28px auto 4px;padding:12px 28px;background:var(--primary);color:#fff;border:none;border-radius:26px;font-size:16px;font-weight:500;letter-spacing:.3px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:background .25s, box-shadow .25s}
     button:hover{background:#1765cc;box-shadow:0 4px 12px rgba(0,0,0,.25)}
-    .hint{text-align:center;color:#5f6368;font-size:14px;margin-top:6px}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>📝 Journal du jour</h1>
 
-    <!-- Endpoint Formspree -->
+    <!-- Formspree endpoint -->
     <form action="https://formspree.io/f/mrblnbqp" method="POST">
 
-      <!-- 🧠 État général (échelles) -->
+      <!-- 🧠 État général (échelles cliquables) -->
       <h2>🧠 État général</h2>
 
-      <div class="scale">
-        <div class="hdr">
-          <label for="energie">Énergie</label>
-          <output id="out-energie">3</output>
+      <div class="seg">
+        <div class="hdr"><label>Énergie</label></div>
+        <div class="segticks">
+          <input id="energie1" type="radio" name="Énergie (1–5)" value="1"><label for="energie1">1<small>Très basse</small></label>
+          <input id="energie2" type="radio" name="Énergie (1–5)" value="2"><label for="energie2">2</label>
+          <input id="energie3" type="radio" name="Énergie (1–5)" value="3" checked><label for="energie3">3</label>
+          <input id="energie4" type="radio" name="Énergie (1–5)" value="4"><label for="energie4">4</label>
+          <input id="energie5" type="radio" name="Énergie (1–5)" value="5"><label for="energie5">5<small>Très haute</small></label>
         </div>
-        <div class="vals"><span>Très basse</span><span>Très haute</span></div>
-        <input id="energie" name="Énergie (1–5)" type="range" min="1" max="5" step="1" value="3"
-               oninput="out-energie.value=this.value">
       </div>
 
-      <div class="scale">
-        <div class="hdr">
-          <label for="stabilite">Stabilité émotionnelle</label>
-          <output id="out-stabilite">3</output>
+      <div class="seg">
+        <div class="hdr"><label>Stabilité émotionnelle</label></div>
+        <div class="segticks">
+          <input id="stab1" type="radio" name="Stabilité émotionnelle (1–5)" value="1"><label for="stab1">1<small>Fragile</small></label>
+          <input id="stab2" type="radio" name="Stabilité émotionnelle (1–5)" value="2"><label for="stab2">2</label>
+          <input id="stab3" type="radio" name="Stabilité émotionnelle (1–5)" value="3" checked><label for="stab3">3</label>
+          <input id="stab4" type="radio" name="Stabilité émotionnelle (1–5)" value="4"><label for="stab4">4</label>
+          <input id="stab5" type="radio" name="Stabilité émotionnelle (1–5)" value="5"><label for="stab5">5<small>Bonne</small></label>
         </div>
-        <div class="vals"><span>Fragile</span><span>Bonne</span></div>
-        <input id="stabilite" name="Stabilité émotionnelle (1–5)" type="range" min="1" max="5" step="1" value="3"
-               oninput="out-stabilite.value=this.value">
       </div>
 
-      <div class="scale">
-        <div class="hdr">
-          <label for="stress">Stress perçu</label>
-          <output id="out-stress">3</output>
+      <div class="seg">
+        <div class="hdr"><label>Stress perçu</label></div>
+        <div class="segticks">
+          <input id="stress1" type="radio" name="Stress perçu (1–5)" value="1"><label for="stress1">1<small>Aucun</small></label>
+          <input id="stress2" type="radio" name="Stress perçu (1–5)" value="2"><label for="stress2">2</label>
+          <input id="stress3" type="radio" name="Stress perçu (1–5)" value="3" checked><label for="stress3">3</label>
+          <input id="stress4" type="radio" name="Stress perçu (1–5)" value="4"><label for="stress4">4</label>
+          <input id="stress5" type="radio" name="Stress perçu (1–5)" value="5"><label for="stress5">5<small>Écrasant</small></label>
         </div>
-        <div class="vals"><span>Aucun</span><span>Écrasant</span></div>
-        <input id="stress" name="Stress perçu (1–5)" type="range" min="1" max="5" step="1" value="3"
-               oninput="out-stress.value=this.value">
       </div>
 
       <div class="row">
@@ -96,33 +116,36 @@
 
       <label>Contact avec Javi aujourd’hui ?</label>
       <div class="radio-group">
-        <label><input type="radio" name="Javi contact" value="Oui"> Oui</label>
-        <label><input type="radio" name="Javi contact" value="Non"> Non</label>
+        <label><input type="radio" name="Javi contact" value="Oui" data-toggle> Oui</label>
+        <label><input type="radio" name="Javi contact" value="Non" data-toggle> Non</label>
       </div>
 
-      <label>Type de lien avec Javi :</label>
-      <input type="text" name="Javi lien">
-
-      <label>Ressenti après Javi :</label>
-      <textarea name="Javi ressenti"></textarea>
+      <div class="cond hidden" data-show-when="Javi contact:Oui">
+        <label>Type de lien avec Javi :</label>
+        <input type="text" name="Javi lien">
+        <label>Ressenti après Javi :</label>
+        <textarea name="Javi ressenti"></textarea>
+      </div>
 
       <label>Contact avec Nathan aujourd’hui ?</label>
       <div class="radio-group">
-        <label><input type="radio" name="Nathan contact" value="Oui"> Oui</label>
-        <label><input type="radio" name="Nathan contact" value="Non"> Non</label>
+        <label><input type="radio" name="Nathan contact" value="Oui" data-toggle> Oui</label>
+        <label><input type="radio" name="Nathan contact" value="Non" data-toggle> Non</label>
       </div>
 
-      <label>Type de lien avec Nathan :</label>
-      <input type="text" name="Nathan lien">
-
-      <label>Malaise avec Nathan ?</label>
-      <div class="radio-group">
-        <label><input type="radio" name="Nathan malaise" value="Oui"> Oui</label>
-        <label><input type="radio" name="Nathan malaise" value="Non"> Non</label>
+      <div class="cond hidden" data-show-when="Nathan contact:Oui">
+        <label>Type de lien avec Nathan :</label>
+        <input type="text" name="Nathan lien">
+        <label>Malaise avec Nathan ?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="Nathan malaise" value="Oui" data-toggle> Oui</label>
+          <label><input type="radio" name="Nathan malaise" value="Non" data-toggle> Non</label>
+        </div>
+        <div class="cond hidden" data-show-when="Nathan malaise:Oui">
+          <label>Préciser :</label>
+          <textarea name="Nathan malaise détails"></textarea>
+        </div>
       </div>
-
-      <label>Préciser :</label>
-      <textarea name="Nathan malaise détails"></textarea>
 
       <!-- 🧩 Ressenti intérieur -->
       <h2>🧩 Ressenti intérieur</h2>
@@ -132,98 +155,103 @@
 
       <label>Soutenue aujourd’hui ?</label>
       <div class="radio-group">
-        <label><input type="radio" name="Soutenue" value="Oui"> Oui</label>
-        <label><input type="radio" name="Soutenue" value="Non"> Non</label>
+        <label><input type="radio" name="Soutenue" value="Oui" data-toggle> Oui</label>
+        <label><input type="radio" name="Soutenue" value="Non" data-toggle> Non</label>
       </div>
 
       <label>Libre aujourd’hui ?</label>
       <div class="radio-group">
-        <label><input type="radio" name="Libre" value="Oui"> Oui</label>
-        <label><input type="radio" name="Libre" value="Non"> Non</label>
+        <label><input type="radio" name="Libre" value="Oui" data-toggle> Oui</label>
+        <label><input type="radio" name="Libre" value="Non" data-toggle> Non</label>
       </div>
 
       <label>Coupable aujourd’hui ?</label>
       <div class="radio-group">
-        <label><input type="radio" name="Culpabilité" value="Oui"> Oui</label>
-        <label><input type="radio" name="Culpabilité" value="Non"> Non</label>
+        <label><input type="radio" name="Culpabilité" value="Oui" data-toggle> Oui</label>
+        <label><input type="radio" name="Culpabilité" value="Non" data-toggle> Non</label>
+      </div>
+      <div class="cond hidden" data-show-when="Culpabilité:Oui">
+        <label>Pourquoi :</label>
+        <input type="text" name="Culpabilité raison">
       </div>
 
-      <label>Pourquoi :</label>
-      <input type="text" name="Culpabilité raison">
-
-      <!-- 🧠 État borderline (échelles 1–5) -->
+      <!-- 🧠 État borderline (échelles cliquables 1–5) -->
       <h2>🧠 État borderline (1–5)</h2>
 
-      <div class="scale">
-        <div class="hdr">
-          <label for="poursuite">Poursuite affective</label>
-          <output id="out-poursuite">3</output>
+      <div class="seg">
+        <div class="hdr"><label>Poursuite affective</label></div>
+        <div class="segticks">
+          <input id="pours1" type="radio" name="Poursuite affective" value="1"><label for="pours1">1<small>Évitement</small></label>
+          <input id="pours2" type="radio" name="Poursuite affective" value="2"><label for="pours2">2</label>
+          <input id="pours3" type="radio" name="Poursuite affective" value="3" checked><label for="pours3">3</label>
+          <input id="pours4" type="radio" name="Poursuite affective" value="4"><label for="pours4">4</label>
+          <input id="pours5" type="radio" name="Poursuite affective" value="5"><label for="pours5">5<small>Poursuite</small></label>
         </div>
-        <div class="vals"><span>Évitement</span><span>Poursuite</span></div>
-        <input id="poursuite" name="Poursuite affective" type="range" min="1" max="5" step="1" value="3"
-               oninput="out-poursuite.value=this.value">
       </div>
 
-      <div class="scale">
-        <div class="hdr">
-          <label for="abandon">Peur de l’abandon</label>
-          <output id="out-abandon">3</output>
+      <div class="seg">
+        <div class="hdr"><label>Peur de l’abandon</label></div>
+        <div class="segticks">
+          <input id="aban1" type="radio" name="Peur abandon" value="1"><label for="aban1">1<small>Sécurité</small></label>
+          <input id="aban2" type="radio" name="Peur abandon" value="2"><label for="aban2">2</label>
+          <input id="aban3" type="radio" name="Peur abandon" value="3" checked><label for="aban3">3</label>
+          <input id="aban4" type="radio" name="Peur abandon" value="4"><label for="aban4">4</label>
+          <input id="aban5" type="radio" name="Peur abandon" value="5"><label for="aban5">5<small>Forte peur</small></label>
         </div>
-        <div class="vals"><span>Sécurité affective</span><span>Peur d’abandon</span></div>
-        <input id="abandon" name="Peur abandon" type="range" min="1" max="5" step="1" value="3"
-               oninput="out-abandon.value=this.value">
       </div>
 
-      <div class="scale">
-        <div class="hdr">
-          <label for="clivage">Clivage / idéalisation</label>
-          <output id="out-clivage">3</output>
+      <div class="seg">
+        <div class="hdr"><label>Clivage / idéalisation</label></div>
+        <div class="segticks">
+          <input id="cliv1" type="radio" name="Clivage" value="1"><label for="cliv1">1<small>Nuancé</small></label>
+          <input id="cliv2" type="radio" name="Clivage" value="2"><label for="cliv2">2</label>
+          <input id="cliv3" type="radio" name="Clivage" value="3" checked><label for="cliv3">3</label>
+          <input id="cliv4" type="radio" name="Clivage" value="4"><label for="cliv4">4</label>
+          <input id="cliv5" type="radio" name="Clivage" value="5"><label for="cliv5">5<small>Noir/Blanc</small></label>
         </div>
-        <div class="vals"><span>Nuancé</span><span>Noir/Blanc</span></div>
-        <input id="clivage" name="Clivage" type="range" min="1" max="5" step="1" value="3"
-               oninput="out-clivage.value=this.value">
       </div>
 
-      <div class="scale">
-        <div class="hdr">
-          <label for="impulsivite">Impulsivité</label>
-          <output id="out-impulsivite">3</output>
+      <div class="seg">
+        <div class="hdr"><label>Impulsivité</label></div>
+        <div class="segticks">
+          <input id="imp1" type="radio" name="Impulsivité" value="1"><label for="imp1">1<small>Calme</small></label>
+          <input id="imp2" type="radio" name="Impulsivité" value="2"><label for="imp2">2</label>
+          <input id="imp3" type="radio" name="Impulsivité" value="3" checked><label for="imp3">3</label>
+          <input id="imp4" type="radio" name="Impulsivité" value="4"><label for="imp4">4</label>
+          <input id="imp5" type="radio" name="Impulsivité" value="5"><label for="imp5">5<small>Élevée</small></label>
         </div>
-        <div class="vals"><span>Calme</span><span>Impulsif·ve</span></div>
-        <input id="impulsivite" name="Impulsivité" type="range" min="1" max="5" step="1" value="3"
-               oninput="out-impulsivite.value=this.value">
       </div>
 
-      <div class="scale">
-        <div class="hdr">
-          <label for="vide">Sentiment de vide</label>
-          <output id="out-vide">3</output>
+      <div class="seg">
+        <div class="hdr"><label>Sentiment de vide</label></div>
+        <div class="segticks">
+          <input id="vide1" type="radio" name="Vide" value="1"><label for="vide1">1<small>Plein</small></label>
+          <input id="vide2" type="radio" name="Vide" value="2"><label for="vide2">2</label>
+          <input id="vide3" type="radio" name="Vide" value="3" checked><label for="vide3">3</label>
+          <input id="vide4" type="radio" name="Vide" value="4"><label for="vide4">4</label>
+          <input id="vide5" type="radio" name="Vide" value="5"><label for="vide5">5<small>Vide</small></label>
         </div>
-        <div class="vals"><span>Ressenti plein</span><span>Vide intérieur</span></div>
-        <input id="vide" name="Vide" type="range" min="1" max="5" step="1" value="3"
-               oninput="out-vide.value=this.value">
       </div>
 
       <!-- 🗣️ Verbalisation -->
       <h2>🗣️ Verbalisation</h2>
-
       <label>Ai-je dit ce que je ressentais ?</label>
       <div class="radio-group">
-        <label><input type="radio" name="Verbalisation" value="Oui"> Oui</label>
-        <label><input type="radio" name="Verbalisation" value="Non"> Non</label>
+        <label><input type="radio" name="Verbalisation" value="Oui" data-toggle> Oui</label>
+        <label><input type="radio" name="Verbalisation" value="Non" data-toggle> Non</label>
       </div>
-
-      <label>À qui ?</label>
-      <input type="text" name="À qui">
-
-      <label>Ce que je n’ai pas osé dire :</label>
-      <textarea name="Non dit"></textarea>
+      <div class="cond hidden" data-show-when="Verbalisation:Oui">
+        <label>À qui ?</label>
+        <input type="text" name="À qui">
+        <label>Ce que je n’ai pas osé dire :</label>
+        <textarea name="Non dit"></textarea>
+      </div>
 
       <!-- 🧭 Notes -->
       <h2>🧭 Notes libres</h2>
       <textarea name="Notes"></textarea>
 
-      <!-- Email requis (Formspree) -->
+      <!-- Email requis (Formspree Free) -->
       <label>Email :</label>
       <input type="email" name="email" required>
 
@@ -236,5 +264,23 @@
       <div class="hint">En envoyant, tu consens au traitement de ces réponses par Facilo Rapido.</div>
     </form>
   </div>
+
+  <!-- JS minimal pour les conditions -->
+  <script>
+    function applyConditions(){
+      document.querySelectorAll('.cond').forEach(block=>{
+        const rule = block.getAttribute('data-show-when'); // "NomDuChamp:Valeur"
+        if(!rule) return;
+        const [field, wanted] = rule.split(':');
+        const checked = document.querySelector(`input[name="${field}"]:checked`);
+        const ok = checked && checked.value === wanted;
+        block.classList.toggle('hidden', !ok);
+      });
+    }
+    document.addEventListener('change', e=>{
+      if(e.target.matches('input[type=radio][data-toggle]')) applyConditions();
+    });
+    applyConditions();
+  </script>
 </body>
 </html>
