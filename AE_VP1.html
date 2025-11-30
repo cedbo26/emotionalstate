@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>AlterEgo – Wireframe MVP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* RESET SIMPLE */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0c0f12;
+      color: #f5f5f5;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* LAYOUT PRINCIPAL */
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      max-width: 480px;
+      margin: 0 auto;
+      height: 100vh;
+      border-left: 1px solid #222;
+      border-right: 1px solid #222;
+      background: radial-gradient(circle at top, #1a2738, #05070b 60%);
+    }
+
+    header.app-header {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #222;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid #ff7f50;
+    }
+
+    .logo-text {
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .header-tagline {
+      font-size: 11px;
+      opacity: 0.7;
+      text-align: right;
+      max-width: 140px;
+      line-height: 1.3;
+    }
+
+    /* PROGRESS BAR ONBOARDING */
+    .progress-wrapper {
+      padding: 8px 16px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .progress-label {
+      font-size: 11px;
+      opacity: 0.6;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .progress-bar {
+      position: relative;
+      width: 100%;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff7f50, #ffb36b);
+      transition: width 0.25s ease-out;
+    }
+
+    /* CONTENU PRINCIPAL */
+    .screen-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      padding: 16px;
+      display: none;
+      overflow-y: auto;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .screen-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .screen-subtitle {
+      font-size: 13px;
+      opacity: 0.75;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 12px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #ff7f50;
+    }
+
+    /* CARTES / BOUTONS */
+    .card-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .card {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(8, 12, 18, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+      transition: border 0.18s ease-out, transform 0.12s ease-out, background 0.18s ease-out;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 127, 80, 0.6);
+      transform: translateY(-1px);
+      background: rgba(14, 20, 30, 0.96);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .card-body {
+      font-size: 12px;
+      opacity: 0.75;
+      line-height: 1.4;
+    }
+
+    .card-meta {
+      font-size: 11px;
+      opacity: 0.55;
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    .cta-primary {
+      display: block;
+      width: 100%;
+      margin-top: 18px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      background: linear-gradient(135deg, #ff7f50, #ffb36b);
+      color: #05070b;
+      cursor: pointer;
+    }
+
+    .cta-secondary {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 13px;
+      background: transparent;
+      color: #f5f5f5;
+      cursor: pointer;
+    }
+
+    .inline-link {
+      font-size: 11px;
+      opacity: 0.65;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .inline-link span {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* BANDEAU SÉCURITÉ */
+    .safety-banner {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 92, 92, 0.9);
+      background: rgba(85, 12, 21, 0.9);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .safety-banner strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
+
+    /* CHAT */
+    .chat-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 100%;
+    }
+
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .chat-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-bot {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 127, 80, 0.6);
+    }
+
+    .chat-header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .chat-header-text span:first-child {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .chat-header-text span:last-child {
+      font-size: 11px;
+      opacity: 0.6;
+    }
+
+    .chat-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+      padding: 8px 0;
+      overflow-y: auto;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .message.bot {
+      align-self: flex-start;
+      background: rgba(15, 22, 32, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .message.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #ff7f50, #ffb36b);
+      color: #05070b;
+    }
+
+    .typing-indicator {
+      font-size: 11px;
+      opacity: 0.6;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .typing-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .chat-footer {
+      border-top: 1px solid #222;
+      padding-top: 8px;
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quick-reply {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(10, 16, 24, 0.9);
+      cursor: pointer;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .chat-input {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(5, 7, 11, 0.9);
+      padding: 8px 10px;
+      font-size: 13px;
+      color: #f5f5f5;
+    }
+
+    .chat-send {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 12px;
+      font-size: 13px;
+      background: rgba(255, 127, 80, 0.9);
+      color: #05070b;
+      cursor: pointer;
+    }
+
+    /* NAV BOTTOM */
+    .bottom-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border-top: 1px solid #222;
+      background: rgba(5, 7, 11, 0.96);
+    }
+
+    .nav-steps {
+      display: flex;
+      gap: 6px;
+    }
+
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .nav-dot.active {
+      background: #ff7f50;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: transparent;
+      color: #f5f5f5;
+      font-size: 11px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+
+    .nav-btn.primary {
+      background: rgba(255, 127, 80, 0.9);
+      border-color: rgba(255, 127, 80, 0.9);
+      color: #05070b;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 520px) {
+      header.app-header {
+        padding: 10px 12px;
+      }
+      .screen {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="logo">
+        <div class="logo-circle"></div>
+        <div class="logo-text">AlterEgo</div>
+      </div>
+      <div class="header-tagline">
+        MVP expérimental – wireframe statique<br />
+        Aucune donnée réelle, juste un prototype.
+      </div>
+    </header>
+
+    <!-- PROGRESS -->
+    <div class="progress-wrapper">
+      <div class="progress-label">
+        <span id="progress-step-label">Écran 1 / 6</span>
+        <span id="progress-context-label">Onboarding</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- SCREENS -->
+    <main class="screen-container">
+      <!-- 0. WELCOME -->
+      <section class="screen active" data-step="0" data-context="Langue" id="screen-welcome">
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <span>Étape 0 – Pré-onboarding</span>
+        </div>
+        <h1 class="screen-title">Bienvenue sur AlterEgo</h1>
+        <p class="screen-subtitle">
+          Une application d'accompagnement après une rupture, guidée par une IA émotionnelle. Ce prototype ne stocke
+          aucune donnée : il sert uniquement à explorer les parcours possibles.
+        </p>
+        <div class="card-group">
+          <div class="card" onclick="goToScreen(1)">
+            <div class="card-title">Je préfère continuer en français</div>
+            <div class="card-body">
+              Interface, questions et modules en français, adaptés aux contextes suisses et internationaux.
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">I’d rather continue in English</div>
+            <div class="card-body">
+              Not implemented in this prototype – placeholder for the future EN version.
+            </div>
+          </div>
+        </div>
+        <button class="cta-primary" onclick="goToScreen(1)">Commencer le parcours</button>
+        <p class="inline-link">
+          Prototype non connecté – <span onclick="goToScreen(5)">voir directement l’écran de chat</span>.
+        </p>
+      </section>
+
+      <!-- 1. LOGIN -->
+      <section class="screen" data-step="1" data-context="Connexion" id="screen-login">
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <span>Étape 1 – Connexion (placeholder)</span>
+        </div>
+        <h1 class="screen-title">Connexion ou création de profil</h1>
+        <p class="screen-subtitle">
+          Dans la version réelle, cet écran gérera la connexion sécurisée (email, identité pseudonymisée, consentement).
+          Ici, il sert à visualiser l’emplacement dans le flux.
+        </p>
+        <div class="card-group">
+          <div class="card">
+            <div class="card-title">Email</div>
+            <div class="card-body">
+              Champ texte + validation. Rappels sur la confidentialité et la possibilité d’utiliser un email secondaire.
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Mot de passe</div>
+            <div class="card-body">
+              Gestion des mots de passe + futur support login social (Apple / Google) selon marché.
+            </div>
+          </div>
+        </div>
+        <button class="cta-primary" onclick="goToScreen(2)">Continuer vers les besoins</button>
+        <button class="cta-secondary" onclick="goToScreen(2)">
+          Passer la connexion dans ce prototype
+        </button>
+      </section>
+
+      <!-- 2. NEED -->
+      <section class="screen" data-step="2" data-context="Besoin" id="screen-need">
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <span>Étape 2 – De quoi as-tu besoin ?</span>
+        </div>
+        <h1 class="screen-title">De quoi as-tu le plus besoin aujourd’hui&nbsp;?</h1>
+        <p class="screen-subtitle">
+          Cet écran oriente le parcours émotionnel. Chaque choix active un ensemble de patterns, modules et recommandations.
+        </p>
+
+        <div class="card-group">
+          <div class="card">
+            <div class="card-title">Comprendre ce qui m’arrive</div>
+            <div class="card-body">
+              Explorer les mécanismes émotionnels d’une rupture, les phases, les pensées intrusives, la fatigue.
+            </div>
+            <div class="card-meta">
+              <span>Onboarding : profilage cognitif léger</span>
+              <span>ID chemin : AE-NEED-01</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Arrêter de tourner en boucle</div>
+            <div class="card-body">
+              Focalisation sur les ruminations, les boucles pensées/émotions et les habitudes qui aggravent la douleur.
+            </div>
+            <div class="card-meta">
+              <span>Modules : grounding, respiration</span>
+              <span>ID : AE-NEED-02</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Pouvoir fonctionner au quotidien</div>
+            <div class="card-body">
+              Aide à garder la tête hors de l’eau : sommeil, appétit, travail, énergie, tâches minimales.
+            </div>
+            <div class="card-meta">
+              <span>Mode « minimal viable day »</span>
+              <span>ID : AE-NEED-03</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Préparer la suite</div>
+            <div class="card-body">
+              Quand la phase aiguë est un peu passée et que tu veux reconstruire : nouvelles habitudes, vision, valeurs.
+            </div>
+            <div class="card-meta">
+              <span>Phase post-aiguë / croissance</span>
+              <span>ID : AE-NEED-04</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="cta-primary" onclick="goToScreen(3)">Valider et continuer</button>
+        <p class="inline-link">
+          Tu pourras ajuster ton besoin principal plus tard directement dans le chat.
+        </p>
+      </section>
+
+      <!-- 3. TIMING -->
+      <section class="screen" data-step="3" data-context="Temporalité" id="screen-timing">
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <span>Étape 3 – Quand la rupture a-t-elle eu lieu ?</span>
+        </div>
+        <h1 class="screen-title">Quand la rupture a-t-elle eu lieu&nbsp;?</h1>
+        <p class="screen-subtitle">
+          La temporalité change beaucoup la manière dont ton système nerveux réagit. Cela permet d’adapter le rythme et
+          l’intensité des exercices proposés.
+        </p>
+
+        <div class="card-group">
+          <div class="card">
+            <div class="card-title">Moins de 7 jours</div>
+            <div class="card-body">
+              Phase de choc aigu, réactions très intenses possibles (pleurs, agitation, anesthésie émotionnelle).
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Entre 1 et 4 semaines</div>
+            <div class="card-body">
+              Le quotidien commence à reprendre, mais les vagues émotionnelles restent fréquentes et imprévisibles.
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Entre 1 et 6 mois</div>
+            <div class="card-body">
+              Phase de réorganisation avec alternance de jours « presque normaux » et de retours en arrière.
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Plus de 6 mois</div>
+            <div class="card-body">
+              Travail sur les schémas relationnels, la répétition de certains scénarios et la reconstruction identitaire.
+            </div>
+          </div>
+        </div>
+
+        <button class="cta-primary" onclick="goToScreen(4)">Continuer</button>
+      </section>
+
+      <!-- 4. SEVERITY -->
+      <section class="screen" data-step="4" data-context="Intensité" id="screen-severity">
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <span>Étape 4 – Intensité actuelle</span>
+        </div>
+        <h1 class="screen-title">Comment ça va là, maintenant&nbsp;?</h1>
+        <p class="screen-subtitle">
+          Cette échelle ne sert pas à juger, mais à calibrer le niveau de soutien. Si c’est trop intense, l’app t’orientera
+          vers des ressources humaines, pas seulement numériques.
+        </p>
+
+        <div class="card-group">
+          <div class="card" data-severity="1" onclick="selectSeverity(this)">
+            <div class="card-title">Je tiens à peu près</div>
+            <div class="card-body">
+              C’est difficile, mais tu arrives à fonctionner globalement : travail, études, tâches de base.
+            </div>
+          </div>
+          <div class="card" data-severity="2" onclick="selectSeverity(this)">
+            <div class="card-title">Ça va et ça vient</div>
+            <div class="card-body">
+              Alternance de moments de relative stabilité et de grosses vagues émotionnelles parfois envahissantes.
+            </div>
+          </div>
+          <div class="card" data-severity="3" onclick="selectSeverity(this)">
+            <div class="card-title">Je suis vraiment très mal</div>
+            <div class="card-body">
+              Pensées envahissantes, difficultés à dormir, manger, se concentrer. Le quotidien devient très lourd.
+            </div>
+          </div>
+          <div class="card" data-severity="4" onclick="selectSeverity(this)">
+            <div class="card-title">C’est au bord du supportable</div>
+            <div class="card-body">
+              Sensation de ne plus voir d’issue. Pensées sombres fréquentes, perte d’énergie majeure, isolement.
+            </div>
+          </div>
+        </div>
+
+        <div class="safety-banner" id="safety-banner">
+          <strong>Priorité : ta sécurité et ta vie.</strong>
+          <span>
+            Ce prototype ne peut pas gérer les urgences. Si tu te sens en danger ou proches d’actes irréversibles,
+            contacte immédiatement les services d’urgence de ton pays, une ligne de crise ou une personne de confiance.
+          </span>
+        </div>
+
+        <button class="cta-primary" onclick="goToScreen(5)">Passer à la conversation</button>
+        <p class="inline-link">
+          Dans la version réelle, cette réponse serait réévaluée régulièrement et combinée à d’autres signaux.
+        </p>
+      </section>
+
+      <!-- 5. CHAT -->
+      <section class="screen" data-step="5" data-context="Chat" id="screen-chat">
+        <div class="chat-wrapper">
+          <div class="chat-header">
+            <div class="chat-header-left">
+              <div class="avatar-bot"></div>
+              <div class="chat-header-text">
+                <span>AlterEgo – Prototype</span>
+                <span>IA émotionnelle (simulation, pas de vraie IA ici)</span>
+              </div>
+            </div>
+            <div style="font-size:11px; opacity:0.6;">Session test</div>
+          </div>
+
+          <div class="chat-body">
+            <div class="message.bot">
+              <strong>Merci d’être là.</strong><br />
+              Ce que tu viens de traverser n’est pas anodin. Ce prototype ne remplace pas un être humain, mais il nous aide
+              à imaginer comment une IA pourrait t’accompagner après une rupture.
+            </div>
+            <div class="message.user">
+              J’ai surtout l’impression de ne plus réussir à me poser, tout tourne en boucle.
+            </div>
+            <div class="message.bot">
+              D’accord. Pour ce test, je vais te proposer trois pistes possibles : apaiser ton système nerveux maintenant,
+              cartographier ce qui te fait le plus mal, ou préparer ton « minimum vital » pour les prochains jours.
+            </div>
+            <div class="message.bot">
+              Tu peux choisir une option ci-dessous, ou juste écrire ce qui vient.
+            </div>
+            <div class="typing-indicator">
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <span>Prototype en mode démo…</span>
+            </div>
+          </div>
+
+          <div class="chat-footer">
+            <div class="quick-replies">
+              <button class="quick-reply">M’aider à me calmer maintenant</button>
+              <button class="quick-reply">Comprendre pourquoi ça fait si mal</button>
+              <button class="quick-reply">Organiser les prochains jours</button>
+            </div>
+            <div class="input-row">
+              <input
+                type="text"
+                class="chat-input"
+                placeholder="Dans la vraie app, tu pourrais écrire librement ici…"
+                disabled
+              />
+              <button class="chat-send" disabled>Envoyer</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- NAV DEMO -->
+    <nav class="bottom-nav">
+      <div class="nav-steps" id="nav-steps">
+        <!-- Dots generated via JS -->
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="prevScreen()">Précédent</button>
+        <button class="nav-btn primary" onclick="nextScreen()">Suivant</button>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    // SIMPLE GESTION DES ÉCRANS POUR LE PROTOTYPE
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const progressFill = document.getElementById("progress-fill");
+    const progressStepLabel = document.getElementById("progress-step-label");
+    const progressContextLabel = document.getElementById("progress-context-label");
+    const safetyBanner = document.getElementById("safety-banner");
+    const navStepsContainer = document.getElementById("nav-steps");
+
+    let currentIndex = 0;
+    const totalScreens = screens.length;
+
+    // Init nav dots
+    function initNavDots() {
+      navStepsContainer.innerHTML = "";
+      for (let i = 0; i < totalScreens; i++) {
+        const dot = document.createElement("div");
+        dot.className = "nav-dot" + (i === currentIndex ? " active" : "");
+        dot.onclick = () => goToScreen(i);
+        navStepsContainer.appendChild(dot);
+      }
+    }
+
+    function updateProgress() {
+      const displayIndex = currentIndex + 1; // pour l’étiquette
+      const context = screens[currentIndex].dataset.context || "Onboarding";
+      const percentage = ((displayIndex - 1) / (totalScreens - 1)) * 100;
+
+      progressFill.style.width = percentage + "%";
+      progressStepLabel.textContent = `Écran ${displayIndex} / ${totalScreens}`;
+      progressContextLabel.textContent = context;
+    }
+
+    function setActiveScreen(index) {
+      screens.forEach((screen, i) => {
+        screen.classList.toggle("active", i === index);
+      });
+      currentIndex = index;
+      updateProgress();
+      updateNavDots();
+    }
+
+    function updateNavDots() {
+      const dots = navStepsContainer.querySelectorAll(".nav-dot");
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === currentIndex);
+      });
+    }
+
+    function goToScreen(index) {
+      if (index < 0 || index >= totalScreens) return;
+      setActiveScreen(index);
+    }
+
+    function nextScreen() {
+      if (currentIndex < totalScreens - 1) {
+        setActiveScreen(currentIndex + 1);
+      }
+    }
+
+    function prevScreen() {
+      if (currentIndex > 0) {
+        setActiveScreen(currentIndex - 1);
+      }
+    }
+
+    // Gestion de la sévérité et du bandeau safety
+    function selectSeverity(cardElement) {
+      const allCards = cardElement.parentElement.querySelectorAll(".card");
+      allCards.forEach((c) => (c.style.borderColor = "rgba(255,255,255,0.06)"));
+
+      cardElement.style.borderColor = "rgba(255, 127, 80, 0.8)";
+      const severityLevel = parseInt(cardElement.dataset.severity || "1", 10);
+
+      if (severityLevel >= 3) {
+        safetyBanner.style.display = "block";
+      } else {
+        safetyBanner.style.display = "none";
+      }
+    }
+
+    // Initialisation
+    initNavDots();
+    updateProgress();
+  </script>
+</body>
+</html>
