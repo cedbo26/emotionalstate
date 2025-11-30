@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AlterEgo – Wireframe MVP</title>
+  <title>AlterEgo – User Path Wireframe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* RESET SIMPLE */
+    /* ========== RESET & BASE ========== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,85 +15,70 @@
     html, body {
       height: 100%;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0c0f12;
-      color: #f5f5f5;
+      background: #f4f4f4;
+      color: #222;
     }
 
     body {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+      padding: 16px;
     }
 
-    /* LAYOUT PRINCIPAL */
+    /* ========== PHONE FRAME / APP SHELL (SIMPLE) ========== */
     .app-shell {
+      background: #ffffff;
+      border: 1px solid #cccccc;
+      border-radius: 24px;
+      width: 360px;
+      max-width: 100%;
+      min-height: 640px;
       display: flex;
       flex-direction: column;
-      max-width: 480px;
-      margin: 0 auto;
-      height: 100vh;
-      border-left: 1px solid #222;
-      border-right: 1px solid #222;
-      background: radial-gradient(circle at top, #1a2738, #05070b 60%);
+      overflow: hidden;
     }
 
-    header.app-header {
+    .app-header {
       padding: 12px 16px;
+      border-bottom: 1px solid #e0e0e0;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #222;
-    }
-
-    .logo {
-      display: flex;
       align-items: center;
-      gap: 8px;
+      font-size: 12px;
     }
 
-    .logo-circle {
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      border: 1px solid #ff7f50;
+    .app-header-title {
+      font-weight: 600;
+      font-size: 13px;
     }
 
-    .logo-text {
-      font-size: 14px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      opacity: 0.9;
-    }
-
-    .header-tagline {
-      font-size: 11px;
-      opacity: 0.7;
+    .app-header-meta {
       text-align: right;
-      max-width: 140px;
-      line-height: 1.3;
+      color: #777;
+      line-height: 1.4;
     }
 
-    /* PROGRESS BAR ONBOARDING */
-    .progress-wrapper {
+    /* ========== PROGRESS / PATH INFO ========== */
+    .status-bar {
       padding: 8px 16px;
-      border-bottom: 1px solid #222;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .progress-label {
+      border-bottom: 1px solid #e0e0e0;
       font-size: 11px;
-      opacity: 0.6;
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
-    .progress-bar {
+    .status-bar small {
+      color: #666;
+    }
+
+    .progress {
       position: relative;
-      width: 100%;
+      width: 120px;
       height: 4px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
+      background: #eee;
+      border-radius: 99px;
       overflow: hidden;
     }
 
@@ -102,13 +87,13 @@
       left: 0;
       top: 0;
       bottom: 0;
-      width: 0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #ff7f50, #ffb36b);
+      width: 10%;
+      background: #333;
+      border-radius: 99px;
       transition: width 0.25s ease-out;
     }
 
-    /* CONTENU PRINCIPAL */
+    /* ========== SCREENS ========== */
     .screen-container {
       flex: 1;
       position: relative;
@@ -119,355 +104,169 @@
       position: absolute;
       inset: 0;
       padding: 16px;
-      display: none;
       overflow-y: auto;
+      display: none;
+      font-size: 13px;
     }
 
     .screen.active {
       display: block;
     }
 
-    .screen-title {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .screen-subtitle {
-      font-size: 13px;
-      opacity: 0.75;
-      margin-bottom: 16px;
-      line-height: 1.4;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .screen-header {
       margin-bottom: 12px;
     }
 
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #ff7f50;
-    }
-
-    /* CARTES / BOUTONS */
-    .card-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .card {
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(8, 12, 18, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      cursor: pointer;
-      transition: border 0.18s ease-out, transform 0.12s ease-out, background 0.18s ease-out;
-    }
-
-    .card:hover {
-      border-color: rgba(255, 127, 80, 0.6);
-      transform: translateY(-1px);
-      background: rgba(14, 20, 30, 0.96);
-    }
-
-    .card-title {
-      font-size: 14px;
-      font-weight: 500;
+    .screen-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #999;
       margin-bottom: 4px;
     }
 
-    .card-body {
+    .screen-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .screen-subtitle {
       font-size: 12px;
-      opacity: 0.75;
+      color: #666;
       line-height: 1.4;
     }
 
-    .card-meta {
-      font-size: 11px;
-      opacity: 0.55;
-      margin-top: 6px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 11px;
-      opacity: 0.8;
-    }
-
-    .cta-primary {
-      display: block;
-      width: 100%;
-      margin-top: 18px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: none;
-      font-size: 14px;
-      font-weight: 500;
-      background: linear-gradient(135deg, #ff7f50, #ffb36b);
-      color: #05070b;
-      cursor: pointer;
-    }
-
-    .cta-secondary {
-      display: block;
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      font-size: 13px;
-      background: transparent;
-      color: #f5f5f5;
-      cursor: pointer;
-    }
-
-    .inline-link {
-      font-size: 11px;
-      opacity: 0.65;
-      margin-top: 8px;
-      text-align: center;
-    }
-
-    .inline-link span {
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    /* BANDEAU SÉCURITÉ */
-    .safety-banner {
-      display: none;
-      margin-top: 10px;
+    /* ========== BLOCKS & OPTIONS ========== */
+    .block {
+      border: 1px solid #dddddd;
+      border-radius: 12px;
       padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 92, 92, 0.9);
-      background: rgba(85, 12, 21, 0.9);
-      font-size: 12px;
-      line-height: 1.4;
+      margin-top: 12px;
+      background: #fafafa;
     }
 
-    .safety-banner strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 12px;
-    }
-
-    /* CHAT */
-    .chat-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      height: 100%;
-    }
-
-    .chat-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .chat-header-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .avatar-bot {
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 127, 80, 0.6);
-    }
-
-    .chat-header-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .chat-header-text span:first-child {
-      font-size: 13px;
+    .block-title {
       font-weight: 500;
+      margin-bottom: 4px;
     }
 
-    .chat-header-text span:last-child {
-      font-size: 11px;
-      opacity: 0.6;
+    .block-body {
+      font-size: 12px;
+      color: #555;
     }
 
-    .chat-body {
-      flex: 1;
+    .options {
+      margin-top: 12px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 6px;
-      padding: 8px 0;
-      overflow-y: auto;
-    }
-
-    .message {
-      max-width: 80%;
-      padding: 8px 10px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .message.bot {
-      align-self: flex-start;
-      background: rgba(15, 22, 32, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .message.user {
-      align-self: flex-end;
-      background: linear-gradient(135deg, #ff7f50, #ffb36b);
-      color: #05070b;
-    }
-
-    .typing-indicator {
-      font-size: 11px;
-      opacity: 0.6;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .typing-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.5);
-    }
-
-    .chat-footer {
-      border-top: 1px solid #222;
-      padding-top: 8px;
-      margin-top: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .quick-replies {
-      display: flex;
-      flex-wrap: wrap;
       gap: 8px;
     }
 
-    .quick-reply {
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(10, 16, 24, 0.9);
+    .option {
+      border: 1px solid #cccccc;
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: #ffffff;
+      font-size: 13px;
       cursor: pointer;
     }
 
-    .input-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 6px;
+    .option small {
+      display: block;
+      color: #777;
+      margin-top: 2px;
+      font-size: 11px;
     }
 
-    .chat-input {
-      flex: 1;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(5, 7, 11, 0.9);
-      padding: 8px 10px;
-      font-size: 13px;
-      color: #f5f5f5;
+    .option.selected {
+      border-color: #000000;
+      background: #f0f0f0;
     }
 
-    .chat-send {
-      border-radius: 999px;
-      border: none;
+    .note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #999;
+    }
+
+    .note code {
+      font-size: 11px;
+      background: #f0f0f0;
+      padding: 1px 3px;
+      border-radius: 3px;
+    }
+
+    /* ========== NAVIGATION ========== */
+    .nav {
+      border-top: 1px solid #e0e0e0;
       padding: 8px 12px;
-      font-size: 13px;
-      background: rgba(255, 127, 80, 0.9);
-      color: #05070b;
-      cursor: pointer;
-    }
-
-    /* NAV BOTTOM */
-    .bottom-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 12px;
-      border-top: 1px solid #222;
-      background: rgba(5, 7, 11, 0.96);
-    }
-
-    .nav-steps {
-      display: flex;
-      gap: 6px;
-    }
-
-    .nav-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.18);
-    }
-
-    .nav-dot.active {
-      background: #ff7f50;
+      font-size: 11px;
+      background: #fafafa;
+      gap: 8px;
     }
 
     .nav-buttons {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
 
-    .nav-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: transparent;
-      color: #f5f5f5;
+    .btn {
+      border-radius: 99px;
+      border: 1px solid #cccccc;
+      background: #ffffff;
+      padding: 6px 12px;
       font-size: 11px;
-      padding: 4px 10px;
       cursor: pointer;
     }
 
-    .nav-btn.primary {
-      background: rgba(255, 127, 80, 0.9);
-      border-color: rgba(255, 127, 80, 0.9);
-      color: #05070b;
+    .btn-primary {
+      background: #000000;
+      color: #ffffff;
+      border-color: #000000;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 520px) {
-      header.app-header {
-        padding: 10px 12px;
+    .pill-steps {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .pill-step {
+      width: 6px;
+      height: 6px;
+      border-radius: 99px;
+      background: #ddd;
+    }
+
+    .pill-step.active {
+      background: #000;
+    }
+
+    /* ========== SAFETY CALLOUT ========== */
+    .callout {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px dashed #b33;
+      background: #fff6f6;
+      font-size: 11px;
+      color: #b33;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 420px) {
+      body {
+        padding: 8px;
       }
-      .screen {
-        padding: 14px;
+      .app-shell {
+        border-radius: 16px;
       }
     }
   </style>
@@ -476,400 +275,800 @@
   <div class="app-shell">
     <!-- HEADER -->
     <header class="app-header">
-      <div class="logo">
-        <div class="logo-circle"></div>
-        <div class="logo-text">AlterEgo</div>
-      </div>
-      <div class="header-tagline">
-        MVP expérimental – wireframe statique<br />
-        Aucune donnée réelle, juste un prototype.
+      <div class="app-header-title">AlterEgo – MVP User Path</div>
+      <div class="app-header-meta">
+        <div>Wireframe static prototype</div>
+        <div>Pure front – no real data</div>
       </div>
     </header>
 
-    <!-- PROGRESS -->
-    <div class="progress-wrapper">
-      <div class="progress-label">
-        <span id="progress-step-label">Écran 1 / 6</span>
-        <span id="progress-context-label">Onboarding</span>
+    <!-- STATUS / PROGRESS -->
+    <div class="status-bar">
+      <div>
+        <div id="status-screen-label">Screen 1 / 11</div>
+        <small id="status-context-label">Welcome / Language</small>
       </div>
-      <div class="progress-bar">
+      <div class="progress">
         <div class="progress-fill" id="progress-fill"></div>
       </div>
     </div>
 
-    <!-- SCREENS -->
+    <!-- MAIN SCREENS -->
     <main class="screen-container">
-      <!-- 0. WELCOME -->
-      <section class="screen active" data-step="0" data-context="Langue" id="screen-welcome">
-        <div class="badge">
-          <div class="badge-dot"></div>
-          <span>Étape 0 – Pré-onboarding</span>
-        </div>
-        <h1 class="screen-title">Bienvenue sur AlterEgo</h1>
-        <p class="screen-subtitle">
-          Une application d'accompagnement après une rupture, guidée par une IA émotionnelle. Ce prototype ne stocke
-          aucune donnée : il sert uniquement à explorer les parcours possibles.
-        </p>
-        <div class="card-group">
-          <div class="card" onclick="goToScreen(1)">
-            <div class="card-title">Je préfère continuer en français</div>
-            <div class="card-body">
-              Interface, questions et modules en français, adaptés aux contextes suisses et internationaux.
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">I’d rather continue in English</div>
-            <div class="card-body">
-              Not implemented in this prototype – placeholder for the future EN version.
-            </div>
-          </div>
-        </div>
-        <button class="cta-primary" onclick="goToScreen(1)">Commencer le parcours</button>
-        <p class="inline-link">
-          Prototype non connecté – <span onclick="goToScreen(5)">voir directement l’écran de chat</span>.
-        </p>
-      </section>
 
-      <!-- 1. LOGIN -->
-      <section class="screen" data-step="1" data-context="Connexion" id="screen-login">
-        <div class="badge">
-          <div class="badge-dot"></div>
-          <span>Étape 1 – Connexion (placeholder)</span>
+      <!-- SCREEN 0 – WELCOME -->
+      <section class="screen active"
+               data-index="0"
+               data-context="Welcome"
+               id="screen-welcome">
+        <div class="screen-header">
+          <div class="screen-label">Entry</div>
+          <h1 class="screen-title">Welcome</h1>
+          <p class="screen-subtitle">
+            Simple splash screen for branding + loading; in the real app this would handle initial checks
+            (auth token, locale, feature flags).
+          </p>
         </div>
-        <h1 class="screen-title">Connexion ou création de profil</h1>
-        <p class="screen-subtitle">
-          Dans la version réelle, cet écran gérera la connexion sécurisée (email, identité pseudonymisée, consentement).
-          Ici, il sert à visualiser l’emplacement dans le flux.
-        </p>
-        <div class="card-group">
-          <div class="card">
-            <div class="card-title">Email</div>
-            <div class="card-body">
-              Champ texte + validation. Rappels sur la confidentialité et la possibilité d’utiliser un email secondaire.
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">Mot de passe</div>
-            <div class="card-body">
-              Gestion des mots de passe + futur support login social (Apple / Google) selon marché.
-            </div>
-          </div>
-        </div>
-        <button class="cta-primary" onclick="goToScreen(2)">Continuer vers les besoins</button>
-        <button class="cta-secondary" onclick="goToScreen(2)">
-          Passer la connexion dans ce prototype
-        </button>
-      </section>
 
-      <!-- 2. NEED -->
-      <section class="screen" data-step="2" data-context="Besoin" id="screen-need">
-        <div class="badge">
-          <div class="badge-dot"></div>
-          <span>Étape 2 – De quoi as-tu besoin ?</span>
-        </div>
-        <h1 class="screen-title">De quoi as-tu le plus besoin aujourd’hui&nbsp;?</h1>
-        <p class="screen-subtitle">
-          Cet écran oriente le parcours émotionnel. Chaque choix active un ensemble de patterns, modules et recommandations.
-        </p>
-
-        <div class="card-group">
-          <div class="card">
-            <div class="card-title">Comprendre ce qui m’arrive</div>
-            <div class="card-body">
-              Explorer les mécanismes émotionnels d’une rupture, les phases, les pensées intrusives, la fatigue.
-            </div>
-            <div class="card-meta">
-              <span>Onboarding : profilage cognitif léger</span>
-              <span>ID chemin : AE-NEED-01</span>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">Arrêter de tourner en boucle</div>
-            <div class="card-body">
-              Focalisation sur les ruminations, les boucles pensées/émotions et les habitudes qui aggravent la douleur.
-            </div>
-            <div class="card-meta">
-              <span>Modules : grounding, respiration</span>
-              <span>ID : AE-NEED-02</span>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">Pouvoir fonctionner au quotidien</div>
-            <div class="card-body">
-              Aide à garder la tête hors de l’eau : sommeil, appétit, travail, énergie, tâches minimales.
-            </div>
-            <div class="card-meta">
-              <span>Mode « minimal viable day »</span>
-              <span>ID : AE-NEED-03</span>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">Préparer la suite</div>
-            <div class="card-body">
-              Quand la phase aiguë est un peu passée et que tu veux reconstruire : nouvelles habitudes, vision, valeurs.
-            </div>
-            <div class="card-meta">
-              <span>Phase post-aiguë / croissance</span>
-              <span>ID : AE-NEED-04</span>
-            </div>
+        <div class="block">
+          <div class="block-title">App status</div>
+          <div class="block-body">
+            • No real login yet, just a visual placeholder.<br />
+            • All answers are stored only in a JS object on this page for demo purposes.<br />
+            • Each option has <code>data-question-id</code> and <code>data-answer-code</code> for mapping to Supabase.
           </div>
         </div>
 
-        <button class="cta-primary" onclick="goToScreen(3)">Valider et continuer</button>
-        <p class="inline-link">
-          Tu pourras ajuster ton besoin principal plus tard directement dans le chat.
+        <p class="note">
+          In the real stack, this screen maps to something like
+          <code>user_paths.entry_screen = "welcome"</code>.
         </p>
       </section>
 
-      <!-- 3. TIMING -->
-      <section class="screen" data-step="3" data-context="Temporalité" id="screen-timing">
-        <div class="badge">
-          <div class="badge-dot"></div>
-          <span>Étape 3 – Quand la rupture a-t-elle eu lieu ?</span>
-        </div>
-        <h1 class="screen-title">Quand la rupture a-t-elle eu lieu&nbsp;?</h1>
-        <p class="screen-subtitle">
-          La temporalité change beaucoup la manière dont ton système nerveux réagit. Cela permet d’adapter le rythme et
-          l’intensité des exercices proposés.
-        </p>
-
-        <div class="card-group">
-          <div class="card">
-            <div class="card-title">Moins de 7 jours</div>
-            <div class="card-body">
-              Phase de choc aigu, réactions très intenses possibles (pleurs, agitation, anesthésie émotionnelle).
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">Entre 1 et 4 semaines</div>
-            <div class="card-body">
-              Le quotidien commence à reprendre, mais les vagues émotionnelles restent fréquentes et imprévisibles.
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">Entre 1 et 6 mois</div>
-            <div class="card-body">
-              Phase de réorganisation avec alternance de jours « presque normaux » et de retours en arrière.
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">Plus de 6 mois</div>
-            <div class="card-body">
-              Travail sur les schémas relationnels, la répétition de certains scénarios et la reconstruction identitaire.
-            </div>
-          </div>
+      <!-- SCREEN 1 – LANGUAGE -->
+      <section class="screen"
+               data-index="1"
+               data-context="Language"
+               id="screen-language">
+        <div class="screen-header">
+          <div class="screen-label">Onboarding 1/4</div>
+          <h1 class="screen-title">Please, select your language</h1>
+          <p class="screen-subtitle">
+            Minimal language switch; only FR/EN here but Supabase can store a free <code>language_code</code> per user.
+          </p>
         </div>
 
-        <button class="cta-primary" onclick="goToScreen(4)">Continuer</button>
-      </section>
-
-      <!-- 4. SEVERITY -->
-      <section class="screen" data-step="4" data-context="Intensité" id="screen-severity">
-        <div class="badge">
-          <div class="badge-dot"></div>
-          <span>Étape 4 – Intensité actuelle</span>
-        </div>
-        <h1 class="screen-title">Comment ça va là, maintenant&nbsp;?</h1>
-        <p class="screen-subtitle">
-          Cette échelle ne sert pas à juger, mais à calibrer le niveau de soutien. Si c’est trop intense, l’app t’orientera
-          vers des ressources humaines, pas seulement numériques.
-        </p>
-
-        <div class="card-group">
-          <div class="card" data-severity="1" onclick="selectSeverity(this)">
-            <div class="card-title">Je tiens à peu près</div>
-            <div class="card-body">
-              C’est difficile, mais tu arrives à fonctionner globalement : travail, études, tâches de base.
-            </div>
-          </div>
-          <div class="card" data-severity="2" onclick="selectSeverity(this)">
-            <div class="card-title">Ça va et ça vient</div>
-            <div class="card-body">
-              Alternance de moments de relative stabilité et de grosses vagues émotionnelles parfois envahissantes.
-            </div>
-          </div>
-          <div class="card" data-severity="3" onclick="selectSeverity(this)">
-            <div class="card-title">Je suis vraiment très mal</div>
-            <div class="card-body">
-              Pensées envahissantes, difficultés à dormir, manger, se concentrer. Le quotidien devient très lourd.
-            </div>
-          </div>
-          <div class="card" data-severity="4" onclick="selectSeverity(this)">
-            <div class="card-title">C’est au bord du supportable</div>
-            <div class="card-body">
-              Sensation de ne plus voir d’issue. Pensées sombres fréquentes, perte d’énergie majeure, isolement.
-            </div>
-          </div>
+        <div class="options">
+          <button class="option"
+                  data-question-id="language"
+                  data-answer-code="fr"
+                  onclick="selectOption(this)">
+            FRENCH
+            <small>Store as <code>language_code = "fr-CH"</code> by default.</small>
+          </button>
+          <button class="option"
+                  data-question-id="language"
+                  data-answer-code="en"
+                  onclick="selectOption(this)">
+            ENGLISH
+            <small>Store as <code>language_code = "en"</code> for now.</small>
+          </button>
         </div>
 
-        <div class="safety-banner" id="safety-banner">
-          <strong>Priorité : ta sécurité et ta vie.</strong>
-          <span>
-            Ce prototype ne peut pas gérer les urgences. Si tu te sens en danger ou proches d’actes irréversibles,
-            contacte immédiatement les services d’urgence de ton pays, une ligne de crise ou une personne de confiance.
-          </span>
-        </div>
-
-        <button class="cta-primary" onclick="goToScreen(5)">Passer à la conversation</button>
-        <p class="inline-link">
-          Dans la version réelle, cette réponse serait réévaluée régulièrement et combinée à d’autres signaux.
+        <p class="note">
+          Table suggestion: <code>user_profiles.language_code</code> with FK from <code>user_paths</code>.
         </p>
       </section>
 
-      <!-- 5. CHAT -->
-      <section class="screen" data-step="5" data-context="Chat" id="screen-chat">
-        <div class="chat-wrapper">
-          <div class="chat-header">
-            <div class="chat-header-left">
-              <div class="avatar-bot"></div>
-              <div class="chat-header-text">
-                <span>AlterEgo – Prototype</span>
-                <span>IA émotionnelle (simulation, pas de vraie IA ici)</span>
-              </div>
-            </div>
-            <div style="font-size:11px; opacity:0.6;">Session test</div>
-          </div>
+      <!-- SCREEN 2 – LOGIN (PLACEHOLDER) -->
+      <section class="screen"
+               data-index="2"
+               data-context="Login"
+               id="screen-login">
+        <div class="screen-header">
+          <div class="screen-label">Onboarding 2/4</div>
+          <h1 class="screen-title">Login (placeholder)</h1>
+          <p class="screen-subtitle">
+            Visual wireframe of the auth screen: text fields + primary button.
+            In the real flow this screen would happen before or after language, depending on product decisions.
+          </p>
+        </div>
 
-          <div class="chat-body">
-            <div class="message.bot">
-              <strong>Merci d’être là.</strong><br />
-              Ce que tu viens de traverser n’est pas anodin. Ce prototype ne remplace pas un être humain, mais il nous aide
-              à imaginer comment une IA pourrait t’accompagner après une rupture.
-            </div>
-            <div class="message.user">
-              J’ai surtout l’impression de ne plus réussir à me poser, tout tourne en boucle.
-            </div>
-            <div class="message.bot">
-              D’accord. Pour ce test, je vais te proposer trois pistes possibles : apaiser ton système nerveux maintenant,
-              cartographier ce qui te fait le plus mal, ou préparer ton « minimum vital » pour les prochains jours.
-            </div>
-            <div class="message.bot">
-              Tu peux choisir une option ci-dessous, ou juste écrire ce qui vient.
-            </div>
-            <div class="typing-indicator">
-              <div class="typing-dot"></div>
-              <div class="typing-dot"></div>
-              <div class="typing-dot"></div>
-              <span>Prototype en mode démo…</span>
-            </div>
-          </div>
-
-          <div class="chat-footer">
-            <div class="quick-replies">
-              <button class="quick-reply">M’aider à me calmer maintenant</button>
-              <button class="quick-reply">Comprendre pourquoi ça fait si mal</button>
-              <button class="quick-reply">Organiser les prochains jours</button>
-            </div>
-            <div class="input-row">
-              <input
-                type="text"
-                class="chat-input"
-                placeholder="Dans la vraie app, tu pourrais écrire librement ici…"
-                disabled
-              />
-              <button class="chat-send" disabled>Envoyer</button>
-            </div>
+        <div class="block">
+          <div class="block-title">Credentials</div>
+          <div class="block-body">
+            • <strong>Email</strong> (unique, verified)<br />
+            • <strong>Password</strong> (or social login)<br />
+            • <strong>CTA:</strong> LOGIN<br /><br />
+            Fields here are static; mapping is described in the note.
           </div>
         </div>
+
+        <p class="note">
+          Suggested tables: <code>auth.users</code> (Supabase) + <code>user_profiles</code> (public).
+        </p>
       </section>
+
+      <!-- SCREEN 3 – PRIMARY NEED -->
+      <section class="screen"
+               data-index="3"
+               data-context="Primary need"
+               id="screen-primary-need">
+        <div class="screen-header">
+          <div class="screen-label">Onboarding 3/4</div>
+          <h1 class="screen-title">First of all, what do you need right now?</h1>
+          <p class="screen-subtitle">
+            This is the main branching question for the MVP: it sets the top-level path in <code>user_paths</code>.
+          </p>
+        </div>
+
+        <div class="options">
+          <button class="option"
+                  data-question-id="main_need"
+                  data-answer-code="process_breakup"
+                  data-next-screen="4"
+                  onclick="selectOption(this)">
+            To process a breakup (past, ongoing, future)
+            <small>Sets <code>user_paths.primary_need = "breakup"</code>.</small>
+          </button>
+
+          <button class="option"
+                  data-question-id="main_need"
+                  data-answer-code="learn_app"
+                  data-next-screen="10"
+                  onclick="selectOption(this)">
+            To know more about this app before I say anything
+            <small>Future info path; in this wireframe we just note the code.</small>
+          </button>
+
+          <button class="option"
+                  data-question-id="main_need"
+                  data-answer-code="talk_someone"
+                  data-next-screen="6"
+                  onclick="selectOption(this)">
+            To have a talk with someone
+            <small>Could short-circuit to live/emergency resources depending on severity.</small>
+          </button>
+
+          <button class="option"
+                  data-question-id="main_need"
+                  data-answer-code="beta_program"
+                  data-next-screen="10"
+                  onclick="selectOption(this)">
+            To give my basics and help joining the AlterEgo testers program
+            <small>Maps to <code>beta_testers</code> table for structured opt-in.</small>
+          </button>
+        </div>
+
+        <p class="note">
+          In logic terms: <code>user_paths.entry_node = "main_need"</code> and defines the high-level branch.
+        </p>
+      </section>
+
+      <!-- SCREEN 4 – BREAKUP TIMING -->
+      <section class="screen"
+               data-index="4"
+               data-context="Breakup timing"
+               id="screen-breakup-timing">
+        <div class="screen-header">
+          <div class="screen-label">Breakup branch – Step 1</div>
+          <h1 class="screen-title">Please tell us when this breakup happened.</h1>
+          <p class="screen-subtitle">
+            Time categories rather than exact dates; this also feeds back into the type of exercises and copy.
+          </p>
+        </div>
+
+        <div class="options">
+          <button class="option"
+                  data-question-id="breakup_timing"
+                  data-answer-code="ongoing"
+                  data-next-screen="5"
+                  onclick="selectOption(this)">
+            It's ongoing right now.
+            <small>Triggers an immediate severity check.</small>
+          </button>
+
+          <button class="option"
+                  data-question-id="breakup_timing"
+                  data-answer-code="very_recent"
+                  data-next-screen="7"
+                  onclick="selectOption(this)">
+            It's very recent (until 4 weeks)
+            <small>Phase acute 0–4 weeks.</small>
+          </button>
+
+          <button class="option"
+                  data-question-id="breakup_timing"
+                  data-answer-code="few_months"
+                  data-next-screen="7"
+                  onclick="selectOption(this)">
+            It's been a while (1 to 12 months)
+            <small>Medium-term integration work.</small>
+          </button>
+
+          <button class="option"
+                  data-question-id="breakup_timing"
+                  data-answer-code="old"
+                  data-next-screen="7"
+                  onclick="selectOption(this)">
+            It's old (one year and more)
+            <small>Focus on patterns and long-term impact.</small>
+          </button>
+        </div>
+
+        <p class="note">
+          Table idea: <code>breakup_context.timing_bucket</code> with enum <code>{"ongoing","0_4w","1_12m","1y_plus"}</code>.
+        </p>
+      </section>
+
+      <!-- SCREEN 5 – SEVERITY -->
+      <section class="screen"
+               data-index="5"
+               data-context="Severity"
+               id="screen-severity">
+        <div class="screen-header">
+          <div class="screen-label">Breakup branch – Step 2 (ongoing)</div>
+          <h1 class="screen-title">Before we discuss anything else: how bad is it?</h1>
+          <p class="screen-subtitle">
+            This is the safety-critical node.
+            Answer codes here also generate a <code>severity_trigger</code> used downstream.
+          </p>
+        </div>
+
+        <div class="options">
+          <button class="option"
+                  data-question-id="severity"
+                  data-answer-code="extremely_bad"
+                  data-trigger="extreme"
+                  data-next-screen="6"
+                  onclick="selectSeverity(this)">
+            Extremely bad
+            <small>My whole life is ruined and I might never recover. I'm contemplating doing something extreme.</small>
+          </button>
+
+          <button class="option"
+                  data-question-id="severity"
+                  data-answer-code="bad"
+                  data-trigger="bad"
+                  data-next-screen="7"
+                  onclick="selectSeverity(this)">
+            Bad
+            <small>Clearly not okay. High emotional load.</small>
+          </button>
+
+          <button class="option"
+                  data-question-id="severity"
+                  data-answer-code="not_great"
+                  data-trigger="not_good"
+                  data-next-screen="7"
+                  onclick="selectSeverity(this)">
+            Not great
+            <small>Uncomfortable but somewhat manageable.</small>
+          </button>
+
+          <button class="option"
+                  data-question-id="severity"
+                  data-answer-code="neutral"
+                  data-trigger="neutral"
+                  data-next-screen="7"
+                  onclick="selectSeverity(this)">
+            Neutral
+          </button>
+
+          <button class="option"
+                  data-question-id="severity"
+                  data-answer-code="not_bad"
+                  data-trigger="not_bad"
+                  data-next-screen="7"
+                  onclick="selectSeverity(this)">
+            It's actually not a bad thing
+          </button>
+
+          <button class="option"
+                  data-question-id="severity"
+                  data-answer-code="good"
+                  data-trigger="good"
+                  data-next-screen="7"
+                  onclick="selectSeverity(this)">
+            It's actually the best thing that could have happened.
+          </button>
+        </div>
+
+        <div class="callout" id="safety-callout" style="display:none;">
+          <strong>Safety trigger: EXTREME</strong>
+          This prototype only shows the logic.
+          In the real app, this would not stay in the chatbot: it would jump to emergency contacts
+          and explain the limits of the system.
+        </div>
+
+        <p class="note">
+          Mapping example: <code>severity_scale.raw_answer</code> + <code>severity_scale.trigger_bucket</code>.
+        </p>
+      </section>
+
+      <!-- SCREEN 6 – TALK TO SOMEONE (EMERGENCY BRANCH) -->
+      <section class="screen"
+               data-index="6"
+               data-context="Emergency / talk to someone"
+               id="screen-talk-someone">
+        <div class="screen-header">
+          <div class="screen-label">Safety branch</div>
+          <h1 class="screen-title">Do you need to talk to someone?</h1>
+          <p class="screen-subtitle">
+            This question is only relevant when severity is high or when user explicitly picks “To have a talk with someone”.
+            Here we just show the logic and the future emergency mapping.
+          </p>
+        </div>
+
+        <div class="options">
+          <button class="option"
+                  data-question-id="talk_someone_urgent"
+                  data-answer-code="yes"
+                  data-next-screen="10"
+                  onclick="selectOption(this)">
+            YES
+            <small>In real product → route to local emergency contacts / helplines.</small>
+          </button>
+
+          <button class="option"
+                  data-question-id="talk_someone_urgent"
+                  data-answer-code="no"
+                  data-next-screen="7"
+                  onclick="selectOption(this)">
+            NO
+            <small>Stay in the self-guided AlterEgo path.</small>
+          </button>
+        </div>
+
+        <p class="note">
+          Table idea: <code>emergency_flags.need_human_contact = true/false</code>.
+        </p>
+      </section>
+
+      <!-- SCREEN 7 – IS BREAKUP A DONE DEAL? -->
+      <section class="screen"
+               data-index="7"
+               data-context="Perceived finality"
+               id="screen-done-deal">
+        <div class="screen-header">
+          <div class="screen-label">Breakup branch – Step 3</div>
+          <h1 class="screen-title">Is this breakup a done deal?</h1>
+          <p class="screen-subtitle">
+            Or in other words: can you, or the other person, have a change of heart?
+            The answers use probability ranges instead of yes/no.
+          </p>
+        </div>
+
+        <div class="options">
+          <button class="option"
+                  data-question-id="breakup_finality"
+                  data-answer-code="guaranteed_over"
+                  onclick="selectOption(this)">
+            Guaranteed it's over
+          </button>
+          <button class="option"
+                  data-question-id="breakup_finality"
+                  data-answer-code="never_recover_99"
+                  onclick="selectOption(this)">
+            99% chance of relationship never recovering
+          </button>
+          <button class="option"
+                  data-question-id="breakup_finality"
+                  data-answer-code="done_75"
+                  onclick="selectOption(this)">
+            Pretty sure it's a done deal (~75% chance)
+          </button>
+          <button class="option"
+                  data-question-id="breakup_finality"
+                  data-answer-code="fifty_fifty"
+                  onclick="selectOption(this)">
+            Can't say – 50% chance of it going either way
+          </button>
+          <button class="option"
+                  data-question-id="breakup_finality"
+                  data-answer-code="probably_back_25"
+                  onclick="selectOption(this)">
+            "We're probably getting back together" (~25% chance breakup stays permanent)
+          </button>
+          <button class="option"
+                  data-question-id="breakup_finality"
+                  data-answer-code="we_break_up_all_the_time_10"
+                  onclick="selectOption(this)">
+            "We break up all the time" – maybe this is more of the same (~10% chance breakup is permanent)
+          </button>
+        </div>
+
+        <p class="note">
+          Could be stored as a numeric <code>perceived_finality_score</code> (0–100) derived from these buckets.
+        </p>
+      </section>
+
+      <!-- SCREEN 8 – WHAT DO YOU NEED TO DO RIGHT NOW? -->
+      <section class="screen"
+               data-index="8"
+               data-context="Immediate orientation"
+               id="screen-immediate-need">
+        <div class="screen-header">
+          <div class="screen-label">Orientation – Step 4</div>
+          <h1 class="screen-title">What do you feel you need to do right now?</h1>
+          <p class="screen-subtitle">
+            This splits the path into three functional branches: fallout, feeling better, future.
+          </p>
+        </div>
+
+        <div class="options">
+          <button class="option"
+                  data-question-id="immediate_need"
+                  data-answer-code="sort_fallout"
+                  data-next-screen="9"
+                  onclick="selectOption(this)">
+            Sort out the fallout of the breakup
+            <small>Emotional, social, administrative, logistics.</small>
+          </button>
+          <button class="option"
+                  data-question-id="immediate_need"
+                  data-answer-code="feel_better"
+                  data-next-screen="11"
+                  onclick="selectOption(this)">
+            Do something to feel better
+          </button>
+          <button class="option"
+                  data-question-id="immediate_need"
+                  data-answer-code="think_future"
+                  data-next-screen="10"
+                  onclick="selectOption(this)">
+            Think of the future
+          </button>
+        </div>
+
+        <p class="note">
+          Maps to <code>user_paths.subpath = {"fallout","regulation","future"}</code>.
+        </p>
+      </section>
+
+      <!-- SCREEN 9 – FALLOUT DETAILS (MULTI-STEP) -->
+      <section class="screen"
+               data-index="9"
+               data-context="Fallout details"
+               id="screen-fallout-details">
+        <div class="screen-header">
+          <div class="screen-label">Fallout branch</div>
+          <h1 class="screen-title">Please explain the specifics of this breakup.</h1>
+          <p class="screen-subtitle">
+            Structure taken from the wireframe: children, cohabitation, housing, social losses.
+          </p>
+        </div>
+
+        <div class="block">
+          <div class="block-title">1/3 – Children</div>
+          <div class="options">
+            <button class="option"
+                    data-question-id="children_involved"
+                    data-answer-code="yes"
+                    onclick="selectOption(this)">
+              YES
+            </button>
+            <button class="option"
+                    data-question-id="children_involved"
+                    data-answer-code="no"
+                    onclick="selectOption(this)">
+              NO
+            </button>
+            <button class="option"
+                    data-question-id="children_involved"
+                    data-answer-code="kind_of"
+                    onclick="selectOption(this)">
+              KIND OF
+            </button>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">2/3 – Living situation</div>
+          <div class="options">
+            <button class="option"
+                    data-question-id="lived_together"
+                    data-answer-code="yes"
+                    onclick="selectOption(this)">
+              Do / did you live with this partner? – YES
+            </button>
+            <button class="option"
+                    data-question-id="lived_together"
+                    data-answer-code="no"
+                    onclick="selectOption(this)">
+              NO
+            </button>
+            <button class="option"
+                    data-question-id="lived_together"
+                    data-answer-code="kind_of"
+                    onclick="selectOption(this)">
+              KIND OF
+            </button>
+          </div>
+
+          <div class="options" style="margin-top:8px;">
+            <button class="option"
+                    data-question-id="need_new_place"
+                    data-answer-code="yes"
+                    onclick="selectOption(this)">
+              Do you need a new place to live? – YES
+            </button>
+            <button class="option"
+                    data-question-id="need_new_place"
+                    data-answer-code="no"
+                    onclick="selectOption(this)">
+              NO
+            </button>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">3/3 – Social impact</div>
+          <div class="options">
+            <button class="option"
+                    data-question-id="losing_others"
+                    data-answer-code="not_really"
+                    onclick="selectOption(this)">
+              Not really
+            </button>
+            <button class="option"
+                    data-question-id="losing_others"
+                    data-answer-code="miss_family"
+                    onclick="selectOption(this)">
+              I'll miss his/her family
+            </button>
+            <button class="option"
+                    data-question-id="losing_others"
+                    data-answer-code="common_friends"
+                    onclick="selectOption(this)">
+              We have common friends
+            </button>
+          </div>
+        </div>
+
+        <p class="note">
+          All these map nicely to a <code>breakup_context</code> table with booleans + enums; later used to propose practical modules.
+        </p>
+      </section>
+
+      <!-- SCREEN 10 – FUTURE-FOCUSED NEXT STEP -->
+      <section class="screen"
+               data-index="10"
+               data-context="Future focus"
+               id="screen-future-step">
+        <div class="screen-header">
+          <div class="screen-label">Future branch</div>
+          <h1 class="screen-title">What do you think the next (long term) step is for you?</h1>
+          <p class="screen-subtitle">
+            This asks for the conscious narrative about the future, not what “should” happen.
+          </p>
+        </div>
+
+        <div class="options">
+          <button class="option"
+                  data-question-id="future_step"
+                  data-answer-code="focus_other_things"
+                  onclick="selectOption(this)">
+            Focus on other things (family, work, other…)
+          </button>
+          <button class="option"
+                  data-question-id="future_step"
+                  data-answer-code="find_new_partner"
+                  onclick="selectOption(this)">
+            Find a new partner
+          </button>
+          <button class="option"
+                  data-question-id="future_step"
+                  data-answer-code="rebound"
+                  onclick="selectOption(this)">
+            Find temporary solace in someone else (a rebound)
+          </button>
+          <button class="option"
+                  data-question-id="future_step"
+                  data-answer-code="several"
+                  onclick="selectOption(this)">
+            Several of the above
+          </button>
+        </div>
+
+        <p class="note">
+          Table: <code>future_orientation.primary_goal</code> with optional multi-select in a junction table for richer analytics.
+        </p>
+      </section>
+
+      <!-- SCREEN 11 – WHY DO YOU NEED TO FEEL BETTER? (MULTI-SELECT) -->
+      <section class="screen"
+               data-index="11"
+               data-context="Regulation motives"
+               id="screen-feel-better">
+        <div class="screen-header">
+          <div class="screen-label">Regulation branch</div>
+          <h1 class="screen-title">Why do you think you need to do something to feel better?</h1>
+          <p class="screen-subtitle">
+            This is explicitly multi-select; it describes the motives behind wanting immediate relief.
+          </p>
+        </div>
+
+        <div class="options">
+          <button class="option"
+                  data-question-id="regulation_motive"
+                  data-answer-code="recover_shock"
+                  data-multi="true"
+                  onclick="toggleMultiOption(this)">
+            I need to recover from the shock.
+          </button>
+          <button class="option"
+                  data-question-id="regulation_motive"
+                  data-answer-code="healthy_distance"
+                  data-multi="true"
+                  onclick="toggleMultiOption(this)">
+            I need a healthy distance from the person, to get them out of my head.
+          </button>
+          <button class="option"
+                  data-question-id="regulation_motive"
+                  data-answer-code="stay_functional"
+                  data-multi="true"
+                  onclick="toggleMultiOption(this)">
+            To stay functional.
+          </button>
+          <button class="option"
+                  data-question-id="regulation_motive"
+                  data-answer-code="dull_pain"
+                  data-multi="true"
+                  onclick="toggleMultiOption(this)">
+            To dull the pain.
+          </button>
+        </div>
+
+        <p class="note">
+          Could be stored in a junction table <code>regulation_motives (user_id, motive_code)</code>; the front-end simply sends an array.
+        </p>
+      </section>
+
     </main>
 
-    <!-- NAV DEMO -->
-    <nav class="bottom-nav">
-      <div class="nav-steps" id="nav-steps">
-        <!-- Dots generated via JS -->
+    <!-- NAVIGATION BAR -->
+    <nav class="nav">
+      <div class="pill-steps" id="pill-steps">
+        <!-- dots filled by JS -->
       </div>
       <div class="nav-buttons">
-        <button class="nav-btn" onclick="prevScreen()">Précédent</button>
-        <button class="nav-btn primary" onclick="nextScreen()">Suivant</button>
+        <button class="btn" onclick="prevScreen()">Back</button>
+        <button class="btn btn-primary" onclick="nextScreen()">Next</button>
       </div>
     </nav>
   </div>
 
   <script>
-    // SIMPLE GESTION DES ÉCRANS POUR LE PROTOTYPE
+    // =============================
+    // SIMPLE STATE & NAVIGATION
+    // =============================
     const screens = Array.from(document.querySelectorAll(".screen"));
     const progressFill = document.getElementById("progress-fill");
-    const progressStepLabel = document.getElementById("progress-step-label");
-    const progressContextLabel = document.getElementById("progress-context-label");
-    const safetyBanner = document.getElementById("safety-banner");
-    const navStepsContainer = document.getElementById("nav-steps");
+    const statusScreenLabel = document.getElementById("status-screen-label");
+    const statusContextLabel = document.getElementById("status-context-label");
+    const pillStepsContainer = document.getElementById("pill-steps");
+    const safetyCallout = document.getElementById("safety-callout");
 
     let currentIndex = 0;
-    const totalScreens = screens.length;
 
-    // Init nav dots
-    function initNavDots() {
-      navStepsContainer.innerHTML = "";
-      for (let i = 0; i < totalScreens; i++) {
+    // All answers stored here – this simulates what will later be persisted in Supabase
+    const answerState = {};
+
+    function initPills() {
+      pillStepsContainer.innerHTML = "";
+      const total = screens.length;
+      for (let i = 0; i < total; i++) {
         const dot = document.createElement("div");
-        dot.className = "nav-dot" + (i === currentIndex ? " active" : "");
+        dot.className = "pill-step" + (i === currentIndex ? " active" : "");
         dot.onclick = () => goToScreen(i);
-        navStepsContainer.appendChild(dot);
+        pillStepsContainer.appendChild(dot);
       }
     }
 
-    function updateProgress() {
-      const displayIndex = currentIndex + 1; // pour l’étiquette
-      const context = screens[currentIndex].dataset.context || "Onboarding";
-      const percentage = ((displayIndex - 1) / (totalScreens - 1)) * 100;
+    function updateUI() {
+      screens.forEach((s, i) => {
+        s.classList.toggle("active", i === currentIndex);
+      });
 
+      const total = screens.length;
+      const displayIndex = currentIndex + 1;
+      const context = screens[currentIndex].dataset.context || "Step";
+
+      statusScreenLabel.textContent = `Screen ${displayIndex} / ${total}`;
+      statusContextLabel.textContent = context;
+
+      const percentage = (displayIndex - 1) / (total - 1) * 100;
       progressFill.style.width = percentage + "%";
-      progressStepLabel.textContent = `Écran ${displayIndex} / ${totalScreens}`;
-      progressContextLabel.textContent = context;
-    }
 
-    function setActiveScreen(index) {
-      screens.forEach((screen, i) => {
-        screen.classList.toggle("active", i === index);
-      });
-      currentIndex = index;
-      updateProgress();
-      updateNavDots();
-    }
-
-    function updateNavDots() {
-      const dots = navStepsContainer.querySelectorAll(".nav-dot");
-      dots.forEach((dot, i) => {
-        dot.classList.toggle("active", i === currentIndex);
-      });
+      const dots = pillStepsContainer.querySelectorAll(".pill-step");
+      dots.forEach((dot, i) => dot.classList.toggle("active", i === currentIndex));
     }
 
     function goToScreen(index) {
-      if (index < 0 || index >= totalScreens) return;
-      setActiveScreen(index);
+      if (index < 0 || index >= screens.length) return;
+      currentIndex = index;
+      updateUI();
     }
 
     function nextScreen() {
-      if (currentIndex < totalScreens - 1) {
-        setActiveScreen(currentIndex + 1);
+      // Basic “smart” next step: if current screen has a selected option with data-next-screen, jump there
+      const activeScreen = screens[currentIndex];
+      const selected = activeScreen.querySelector(".option.selected");
+      if (selected && selected.dataset.nextScreen) {
+        goToScreen(parseInt(selected.dataset.nextScreen, 10));
+        return;
+      }
+      if (currentIndex < screens.length - 1) {
+        goToScreen(currentIndex + 1);
       }
     }
 
     function prevScreen() {
       if (currentIndex > 0) {
-        setActiveScreen(currentIndex - 1);
+        goToScreen(currentIndex - 1);
       }
     }
 
-    // Gestion de la sévérité et du bandeau safety
-    function selectSeverity(cardElement) {
-      const allCards = cardElement.parentElement.querySelectorAll(".card");
-      allCards.forEach((c) => (c.style.borderColor = "rgba(255,255,255,0.06)"));
+    // =============================
+    // OPTION SELECTION LOGIC
+    // =============================
+    function clearSelections(questionId) {
+      document
+        .querySelectorAll(`.option[data-question-id="${questionId}"]`)
+        .forEach((el) => el.classList.remove("selected"));
+    }
 
-      cardElement.style.borderColor = "rgba(255, 127, 80, 0.8)";
-      const severityLevel = parseInt(cardElement.dataset.severity || "1", 10);
+    function selectOption(el) {
+      const qid = el.dataset.questionId;
+      const code = el.dataset.answerCode;
+      const trigger = el.dataset.trigger || null;
 
-      if (severityLevel >= 3) {
-        safetyBanner.style.display = "block";
+      if (!qid || !code) return;
+
+      clearSelections(qid);
+      el.classList.add("selected");
+
+      answerState[qid] = { code, trigger };
+      console.log("Answer state:", answerState);
+    }
+
+    function selectSeverity(el) {
+      selectOption(el); // normal behavior
+      const trigger = el.dataset.trigger || "";
+      if (trigger === "extreme") {
+        safetyCallout.style.display = "block";
       } else {
-        safetyBanner.style.display = "none";
+        safetyCallout.style.display = "none";
       }
     }
 
-    // Initialisation
-    initNavDots();
-    updateProgress();
+    // Multi-select for motives
+    function toggleMultiOption(el) {
+      const qid = el.dataset.questionId;
+      const code = el.dataset.answerCode;
+      if (!qid || !code) return;
+
+      el.classList.toggle("selected");
+
+      if (!Array.isArray(answerState[qid])) {
+        answerState[qid] = [];
+      }
+
+      if (el.classList.contains("selected")) {
+        if (!answerState[qid].includes(code)) {
+          answerState[qid].push(code);
+        }
+      } else {
+        answerState[qid] = answerState[qid].filter((c) => c !== code);
+      }
+
+      console.log("Answer state:", answerState);
+    }
+
+    // INIT
+    initPills();
+    updateUI();
   </script>
 </body>
 </html>
